@@ -1,0 +1,25 @@
+# Dependențe
+node_modules/
+
+# Variabile de mediu (conțin parole!)
+.env
+
+# Fișiere încărcate de utilizatori
+public/uploads/
+
+# Logs
+*.log
+server.log
+server.err
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Claude AI files
+.claude/

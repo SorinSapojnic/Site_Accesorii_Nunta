@@ -1,0 +1,76 @@
+════════════════════════════════════════════════════
+  ACCESORII NUNTĂ – Ghid de pornire și configurare
+════════════════════════════════════════════════════
+
+─── STRUCTURA PROIECTULUI ───────────────────────────
+  server.js          → Serverul Node.js (backend)
+  routes/            → API: auth, products, orders
+  public/            → Frontend (HTML, CSS, JS)
+  data/products.json → Baza de date produse
+  .env               → Configurare email, parolă, port
+
+─── PASUL 1: Configurează emailul ──────────────────
+  Deschide fișierul .env și completează:
+
+  EMAIL_USER=adresa_ta@gmail.com
+  EMAIL_PASS=parola_aplicatie_gmail
+
+  IMPORTANT – Cum obții "App Password" pentru Gmail:
+  1. Mergi la: myaccount.google.com
+  2. Securitate → Verificare în 2 pași (activează dacă nu e)
+  3. myaccount.google.com/apppasswords
+  4. Selectează "Mail" și "Windows Computer"
+  5. Copiază parola generată (16 caractere) în EMAIL_PASS
+
+─── PASUL 2: Pornește serverul ─────────────────────
+  Deschide un Terminal (Command Prompt / PowerShell)
+  în folderul proiectului și rulează:
+
+    node server.js
+
+  SAU pentru repornire automată la modificări:
+    npx nodemon server.js
+
+  Site-ul va fi disponibil la: http://localhost:3000
+  Admin panel:                  http://localhost:3000/admin.html
+
+─── PASUL 3: Hosting pe server ─────────────────────
+  Recomandat: VPS cu Ubuntu + Nginx + PM2
+
+  1. Copiază fișierele pe server (FTP sau Git)
+  2. Instalează dependențele:
+       npm install --production
+  3. Pornește cu PM2 (rulare permanentă):
+       npm install -g pm2
+       pm2 start server.js --name "accesorii-nunta"
+       pm2 startup && pm2 save
+  4. Configurează Nginx ca reverse proxy:
+       location / { proxy_pass http://localhost:3000; }
+
+─── ADMIN PANEL ─────────────────────────────────────
+  URL:    /admin.html
+  Parolă: Nunta2024  (schimb-o după prima logare!)
+
+  Funcții disponibile:
+  • Adaugă / Editează / Șterge produse
+  • Filtrare și căutare produse
+  • Import JSON (bulk upload produse)
+  • Export JSON (backup produse)
+  • Schimbare parolă admin
+
+─── API ENDPOINTS ──────────────────────────────────
+  GET    /api/products          → lista produse
+  POST   /api/products          → adaugă produs (auth)
+  PUT    /api/products/:id      → editează produs (auth)
+  DELETE /api/products/:id      → șterge produs (auth)
+  POST   /api/products/import   → import bulk (auth)
+  POST   /api/auth/login        → autentificare admin
+  POST   /api/auth/change-pass  → schimbare parolă
+  POST   /api/orders            → plasare comandă (email)
+
+─── LIVRARE ─────────────────────────────────────────
+  Chișinău < 500 MDL  → 100 MDL
+  Chișinău ≥ 500 MDL  → GRATUIT
+  Altă localitate     → Contra-cost (poștă/curier)
+
+════════════════════════════════════════════════════

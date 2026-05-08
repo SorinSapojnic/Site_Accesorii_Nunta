@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accesorii Nuntă – Chișinău</title>
+  <meta name="description" content="Accesorii nuntă de calitate în Chișinău. Lumânări, buchete, pahare, invitații și multe altele. Livrare în toată Moldova.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header id="main-header">
+  <div class="header-inner container">
+    <button class="hamburger" id="hamburger" aria-label="Meniu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="logo" href="#" data-view="home">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M20 10 C14 10, 10 14, 10 18 C10 24, 16 28, 20 32 C24 28, 30 24, 30 18 C30 14, 26 10, 20 10Z" fill="currentColor" opacity="0.15"/>
+        <path d="M20 12 C15 12, 12 15.5, 12 18.5 C12 23.5, 16.5 27, 20 30 C23.5 27, 28 23.5, 28 18.5 C28 15.5, 25 12, 20 12Z" stroke="currentColor" stroke-width="1" fill="none"/>
+        <circle cx="20" cy="19" r="2.5" fill="currentColor"/>
+      </svg>
+      <span class="logo-text">Accesorii <em>Nuntă</em></span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="#" data-view="home" class="nav-link">Acasă</a>
+      <a href="#" data-view="catalog" class="nav-link">Catalog</a>
+      <a href="#contact-section" class="nav-link nav-scroll">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="search-toggle" aria-label="Căutare">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      <button class="icon-btn cart-toggle-btn" id="cart-toggle" aria-label="Coș">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar-wrap" id="search-bar-wrap">
+    <div class="container">
+      <input type="search" id="header-search" placeholder="Caută produse... (ex: lumânări, pahare, buchet)" autocomplete="off">
+      <button class="search-clear" id="search-clear">✕</button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ MOBILE NAV ═══════════════════════ -->
+<div class="mobile-overlay" id="mobile-overlay"></div>
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <a href="#" data-view="home" class="mobile-nav-link">🏠 Acasă</a>
+  <a href="#" data-view="catalog" class="mobile-nav-link">🛍️ Catalog</a>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-cats" id="mobile-nav-cats"></div>
+  <div class="mobile-nav-divider"></div>
+  <a href="#contact-section" class="mobile-nav-link nav-scroll">📍 Contact</a>
+  <div class="mobile-nav-contact">
+    <a href="tel:+37369488656">📞 +373 69 488 656</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<main id="main-content">
+
+  <!-- ── VIEW: HOME ── -->
+  <section id="view-home" class="view active">
+
+    <!-- HERO — centrat, full impact -->
+    <div class="hero">
+      <div class="hero-dots"></div>
+      <div class="hero-decor">
+        <span class="hero-ring hero-ring-1"></span>
+        <span class="hero-ring hero-ring-2"></span>
+        <span class="hero-ring hero-ring-3"></span>
+        <span class="hero-ring hero-ring-4"></span>
+      </div>
+      <div class="hero-content">
+        <p class="hero-pretitle">Magazin accesorii nuntă · Chișinău</p>
+        <h1 class="hero-title">Fiecare detaliu<br><em>contează</em></h1>
+        <div class="hero-line"></div>
+        <p class="hero-sub">
+          Lumânări, buchete, pahare, invitații și tot ce ai nevoie<br>
+          pentru nunta viselor tale — livrate în Chișinău și toată Moldova
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-gold btn-lg" data-view="catalog">✦ Explorează Catalogul</button>
+          <a href="tel:+37369488656" class="btn btn-outline btn-lg">📞 Sună-ne acum</a>
+        </div>
+      </div>
+      <div class="hero-scroll" onclick="document.querySelector('.section-categories').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+        <span>Scroll</span>
+      </div>
+    </div>
+
+    <!-- CATEGORII -->
+    <section class="section-categories">
+      <div class="container">
+        <div class="section-center">
+          <div class="section-eyebrow" style="justify-content:center">Colecțiile noastre</div>
+          <h2 class="section-title">Explorează Categoriile</h2>
+          <p class="section-sub">Tot ce ai nevoie pentru ziua ta specială, într-un singur loc</p>
+        </div>
+        <div class="categories-grid" id="categories-grid"></div>
+      </div>
+    </section>
+
+    <!-- PRODUSE NOI -->
+    <section class="section-new">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow" style="justify-content:flex-start">Ultimele noutăți</div>
+            <h2 class="section-title" style="text-align:left">Produse Noi</h2>
+            <p class="section-sub" style="text-align:left; margin-bottom:0">Proaspăt adăugate în colecție</p>
+          </div>
+          <button class="btn btn-outline" data-view="catalog" data-filter="new">Vezi toate →</button>
+        </div>
+        <div class="products-grid" id="new-products-grid"></div>
+      </div>
+    </section>
+
+    <!-- AVANTAJE -->
+    <section class="section-benefits">
+      <div class="container">
+        <div class="section-center">
+          <div class="section-eyebrow" style="justify-content:center">De ce noi</div>
+          <h2 class="section-title">Cumpărături fără griji</h2>
+          <p class="section-sub">Simplitate, calitate și livrare rapidă — promisiunea noastră</p>
+        </div>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <span class="benefit-icon">🚚</span>
+            <h3>Livrare în Chișinău</h3>
+            <p>100 MDL la comenzi sub 500 MDL. Complet gratuit la comenzi de 500 MDL sau mai mult.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">💳</span>
+            <h3>Ramburs la livrare</h3>
+            <p>Plata se face la primirea coletului. Fără riscuri, fără avans, 100% siguranță.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">🌸</span>
+            <h3>Calitate garantată</h3>
+            <p>Fiecare produs este atent selectat pentru a fi perfect la ziua ta specială.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">📦</span>
+            <h3>Toată Moldova</h3>
+            <p>Livrăm în orice colț al Republicii Moldova prin poștă sau servicii de curier.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section-contact" id="contact-section">
+      <div class="container">
+        <div class="section-center" style="margin-bottom: 48px;">
+          <div class="section-eyebrow" style="justify-content:center; color: var(--gold-shine)">Suntem aproape</div>
+          <h2 class="section-title" style="color:#fff">Contactează-ne</h2>
+          <p class="section-sub" style="color:rgba(255,255,255,.55); margin-bottom:0">Răspundem rapid pe Viber, WhatsApp sau telefon</p>
+        </div>
+        <div class="contact-strip">
+          <div class="contact-item">
+            <div class="contact-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <strong>Telefon</strong>
+              <a href="tel:+37369488656">+373 69 488 656</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <strong>Locație</strong>
+              <span>Chișinău, Republica Moldova</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M12 17v4"/></svg>
+            </div>
+            <div>
+              <strong>Program</strong>
+              <span>Lun–Vin: 9:00 – 18:00</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.4 0C5.6.3 1.3 4.5 1 10.3c-.2 3.3.7 6.3 2.8 8.6.3.3.4.6.3.9l-.5 2.7c-.1.4.3.8.7.6l2.8-.9c.3-.1.6 0 .9.1 1.2.6 2.5.9 3.9 1 6.7.4 12.4-4.6 12.1-11.4C23.7 4.9 18.2-.4 11.4 0z"/></svg>
+            </div>
+            <div>
+              <strong>Viber / WhatsApp</strong>
+              <a href="viber://chat?number=%2B37369488656">Scrie-ne acum</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HARTA GOOGLE MAPS -->
+    <section class="section-map">
+      <div class="container">
+        <div class="map-inner">
+          <div class="map-info">
+            <div class="section-eyebrow" style="justify-content:flex-start">Ne găsești ușor</div>
+            <h2 class="map-info-title">Vino să ne<br><em>vizitezi</em></h2>
+            <div class="map-info-details">
+              <div class="map-detail-row">
+                <div class="map-detail-icon">📍</div>
+                <div class="map-detail-text">
+                  <strong>Adresă</strong>
+                  <span>Chișinău, Republica Moldova</span>
+                </div>
+              </div>
+              <div class="map-detail-row">
+                <div class="map-detail-icon">📞</div>
+                <div class="map-detail-text">
+                  <strong>Telefon</strong>
+                  <a href="tel:+37369488656">+373 69 488 656</a>
+                </div>
+              </div>
+              <div class="map-detail-row">
+                <div class="map-detail-icon">🕐</div>
+                <div class="map-detail-text">
+                  <strong>Program de lucru</strong>
+                  <span>Luni – Vineri: 9:00 – 18:00<br>Sâmbătă: 10:00 – 15:00</span>
+                </div>
+              </div>
+              <div class="map-detail-row">
+                <div class="map-detail-icon">💬</div>
+                <div class="map-detail-text">
+                  <strong>Consultanță gratuită</strong>
+                  <span>Vino să alegi împreună cu noi cele mai frumoase accesorii pentru nunta ta</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ⬇ ÎNLOCUIEȘTE src="" cu link-ul tău de pe Google Maps (Embed) -->
+          <div class="map-frame-wrap">
+            <div class="map-placeholder" id="map-placeholder">
+              <div class="map-placeholder-icon">🗺️</div>
+              <p><strong>Harta Google Maps</strong><br>Adaugă link-ul tău din Google Maps în fișierul <code>index.html</code>, secțiunea <code>map-frame-wrap</code></p>
+            </div>
+            <!-- Când ai link-ul, șterge div-ul de mai sus și decomentează iframe-ul de jos: -->
+            <!--
+            <iframe
+              src="PUNE_AICI_LINK_EMBED_GOOGLE_MAPS"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </section><!-- /view-home -->
+
+  <!-- ── VIEW: CATALOG ── -->
+  <section id="view-catalog" class="view">
+    <div class="catalog-layout container">
+
+      <aside class="catalog-sidebar" id="catalog-sidebar">
+        <div class="sidebar-header">
+          <h3>Filtrează</h3>
+          <button class="sidebar-clear" id="clear-filters">Resetează</button>
+        </div>
+        <div class="sidebar-search">
+          <input type="search" id="catalog-search" placeholder="Caută în catalog...">
+        </div>
+        <div class="sidebar-cats" id="sidebar-cats"></div>
+      </aside>
+
+      <div class="catalog-main">
+        <div class="catalog-topbar">
+          <div class="catalog-breadcrumb" id="catalog-breadcrumb">
+            <span>Catalog</span>
+          </div>
+          <div class="catalog-controls">
+            <span class="results-count" id="results-count"></span>
+            <select id="sort-select" class="sort-select">
+              <option value="default">Sortare implicită</option>
+              <option value="price-asc">Preț crescător</option>
+              <option value="price-desc">Preț descrescător</option>
+              <option value="new">Noutăți întâi</option>
+              <option value="name-asc">Nume A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="mobile-filter-btn" id="mobile-filter-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+          Filtrează
+        </button>
+
+        <div class="products-grid" id="catalog-grid"></div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </section><!-- /view-catalog -->
+
+  <!-- ── VIEW: PRODUCT ── -->
+  <section id="view-product" class="view">
+    <div class="container">
+      <div class="product-page" id="product-page"></div>
+    </div>
+  </section>
+
+  <!-- ── VIEW: CHECKOUT ── -->
+  <section id="view-checkout" class="view">
+    <div class="container">
+      <div class="checkout-layout">
+        <div class="checkout-form-wrap">
+          <h2 class="checkout-title">Finalizează Comanda</h2>
+          <form id="checkout-form" novalidate>
+            <div class="form-section">
+              <h3>Date personale</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="f-name">Prenume și Nume <span class="req">*</span></label>
+                  <input type="text" id="f-name" name="name" placeholder="ex: Maria Ionescu" required>
+                </div>
+                <div class="form-group">
+                  <label for="f-phone">Telefon <span class="req">*</span></label>
+                  <input type="tel" id="f-phone" name="phone" placeholder="+373 xx xxx xxx" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="f-email">Email <span class="opt">(opțional)</span></label>
+                <input type="email" id="f-email" name="email" placeholder="exemplu@email.com">
+              </div>
+            </div>
+            <div class="form-section">
+              <h3>Adresa de livrare</h3>
+              <div class="form-group">
+                <label for="f-city">Localitate <span class="req">*</span></label>
+                <select id="f-city" name="city" required>
+                  <option value="">-- Selectează --</option>
+                  <option value="Chișinău">Chișinău (livrare 100 MDL / gratuit la 500+ MDL)</option>
+                  <option value="Alta">Altă localitate (prin poștă/curier, contra-cost)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="f-address">Adresa <span class="req">*</span></label>
+                <input type="text" id="f-address" name="address" placeholder="Strada, nr., ap." required>
+              </div>
+              <div class="form-group">
+                <label for="f-notes">Note pentru comandă <span class="opt">(opțional)</span></label>
+                <textarea id="f-notes" name="notes" rows="3" placeholder="Culori preferate, detalii speciale, etc."></textarea>
+              </div>
+            </div>
+            <div class="payment-info">
+              <div class="payment-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                <span>Plată: <strong>Ramburs la livrare</strong> — plătești când primești coletul</span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="submit-order-btn">
+              <span id="submit-btn-text">Plasează Comanda</span>
+              <span id="submit-btn-loader" class="btn-loader hidden">Se trimite...</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="checkout-summary">
+          <div class="summary-card sticky-summary">
+            <h3>Sumar Comandă</h3>
+            <div id="checkout-items-list"></div>
+            <div class="summary-divider"></div>
+            <div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">0 MDL</span></div>
+            <div class="summary-row delivery-row"><span>Livrare</span><span id="summary-delivery">—</span></div>
+            <div class="summary-row summary-total"><span>Total</span><span id="summary-total">0 MDL</span></div>
+            <button class="btn btn-ghost btn-sm" data-view="catalog">← Continuă cumpărăturile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VIEW: SUCCESS ── -->
+  <section id="view-success" class="view">
+    <div class="container">
+      <div class="success-page">
+        <div class="success-icon">🌸</div>
+        <h2>Mulțumim pentru comandă!</h2>
+        <p class="success-msg">Comanda ta a fost plasată cu succes. Te vom contacta în scurt timp pentru confirmare și detalii de livrare.</p>
+        <div class="success-order-id">Nr. comandă: <strong id="success-order-id"></strong></div>
+        <div class="success-actions">
+          <button class="btn btn-primary" data-view="home">Înapoi la pagina principală</button>
+          <button class="btn btn-outline" data-view="catalog">Continuă cumpărăturile</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main><!-- /main -->
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer id="main-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#" data-view="home">
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5"/><path d="M20 10 C14 10, 10 14, 10 18 C10 24, 16 28, 20 32 C24 28, 30 24, 30 18 C30 14, 26 10, 20 10Z" fill="currentColor" opacity="0.15"/><path d="M20 12 C15 12, 12 15.5, 12 18.5 C12 23.5, 16.5 27, 20 30 C23.5 27, 28 23.5, 28 18.5 C28 15.5, 25 12, 20 12Z" stroke="currentColor" stroke-width="1" fill="none"/><circle cx="20" cy="19" r="2.5" fill="currentColor"/></svg>
+          <span class="logo-text">Accesorii <em>Nuntă</em></span>
+        </a>
+        <p>Accesorii elegante pentru nunta ta de vis. Calitate, rafinament și atenție la fiecare detaliu.</p>
+        <div class="footer-social">
+          <a href="viber://chat?number=%2B37369488656" class="social-link viber" title="Viber">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.4 0C5.6.3 1.3 4.5 1 10.3c-.2 3.3.7 6.3 2.8 8.6.3.3.4.6.3.9l-.5 2.7c-.1.4.3.8.7.6l2.8-.9c.3-.1.6 0 .9.1 1.2.6 2.5.9 3.9 1 6.7.4 12.4-4.6 12.1-11.4C23.7 4.9 18.2-.4 11.4 0zm6 15.6c-.5.5-1 .9-1.7.9-.3 0-.7-.1-1-.3-1.8-.9-3.4-2.1-4.8-3.5-1.4-1.4-2.6-3-3.5-4.8-.5-.9-.3-2 .4-2.7l.6-.6c.3-.3.8-.3 1.1 0L10 6.2c.3.3.3.8 0 1.1l-.8.8c-.2.2-.2.5-.1.7.7 1.5 1.6 2.8 2.7 3.9 1.1 1.1 2.4 2 3.9 2.7.3.1.5.1.7-.1l.8-.8c.3-.3.8-.3 1.1 0l1.6 1.6c.3.3.3.8-.5 1.5z"/></svg>
+          </a>
+          <a href="https://wa.me/37369488656" class="social-link whatsapp" title="WhatsApp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Categorii</h4>
+        <div id="footer-cats"></div>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><a href="tel:+37369488656">📞 +373 69 488 656</a></p>
+        <p>📍 Chișinău, Republica Moldova</p>
+        <p>🕐 Lun–Vin: 9:00 – 18:00</p>
+        <p>🕐 Sâmbătă: 10:00 – 15:00</p>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p>© <span id="footer-year"></span> Accesorii Nuntă – Chișinău. Toate drepturile rezervate.</p>
+      <p>Făcut cu <span class="footer-bottom-heart">♥</span> pentru mirese din Moldova</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════ CART SIDEBAR ═══════════════════════ -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h3>Coșul tău 🛍️</h3>
+    <button class="cart-close" id="cart-close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cart-items-list"></div>
+  <div class="cart-footer" id="cart-footer">
+    <div class="cart-subtotal-row">
+      <span>Subtotal</span>
+      <span id="cart-subtotal">0 MDL</span>
+    </div>
+    <div class="cart-delivery-row">
+      <span>Livrare (Chișinău)</span>
+      <span id="cart-delivery">100 MDL</span>
+    </div>
+    <div class="cart-total-row">
+      <span>Total estimat</span>
+      <span id="cart-total">0 MDL</span>
+    </div>
+    <button class="btn btn-primary btn-full" id="checkout-btn">Finalizează Comanda →</button>
+    <button class="btn btn-ghost btn-sm btn-full" id="continue-shopping">Continuă cumpărăturile</button>
+  </div>
+  <div class="cart-empty" id="cart-empty">
+    <div class="cart-empty-icon">🛍️</div>
+    <p>Coșul tău este gol</p>
+    <button class="btn btn-outline btn-sm" id="cart-browse">Explorează catalogul</button>
+  </div>
+</aside>
+
+<!-- ═══════════════════════ FLOATING BUTTONS ═══════════════════════ -->
+<div class="float-buttons">
+  <a href="https://wa.me/37369488656" class="float-btn whatsapp-btn" title="WhatsApp" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <a href="viber://chat?number=%2B37369488656" class="float-btn viber-btn" title="Viber">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.4 0C5.6.3 1.3 4.5 1 10.3c-.2 3.3.7 6.3 2.8 8.6.3.3.4.6.3.9l-.5 2.7c-.1.4.3.8.7.6l2.8-.9c.3-.1.6 0 .9.1 1.2.6 2.5.9 3.9 1 6.7.4 12.4-4.6 12.1-11.4C23.7 4.9 18.2-.4 11.4 0zm6 15.6c-.5.5-1 .9-1.7.9-.3 0-.7-.1-1-.3-1.8-.9-3.4-2.1-4.8-3.5-1.4-1.4-2.6-3-3.5-4.8-.5-.9-.3-2 .4-2.7l.6-.6c.3-.3.8-.3 1.1 0L10 6.2c.3.3.3.8 0 1.1l-.8.8c-.2.2-.2.5-.1.7.7 1.5 1.6 2.8 2.7 3.9 1.1 1.1 2.4 2 3.9 2.7.3.1.5.1.7-.1l.8-.8c.3-.3.8-.3 1.1 0l1.6 1.6c.3.3.3.8-.5 1.5z"/></svg>
+  </a>
+</div>
+
+<!-- ═══════════════════════ TOAST ═══════════════════════ -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script src="js/app.js"></script>
+
+<script>
+  // Header scroll shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-header').classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>
+</body>
+</html>

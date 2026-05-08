@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Accesorii Nuntă</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
+<div id="login-screen" class="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5"/><path d="M20 10 C14 10, 10 14, 10 18 C10 24, 16 28, 20 32 C24 28, 30 24, 30 18 C30 14, 26 10, 20 10Z" fill="currentColor" opacity="0.15"/><circle cx="20" cy="19" r="2.5" fill="currentColor"/></svg>
+    </div>
+    <h1>Panou Administrare</h1>
+    <p>Accesorii Nuntă</p>
+    <form id="login-form">
+      <div class="login-group">
+        <label>Parolă</label>
+        <input type="password" id="login-password" placeholder="Introduceți parola" autocomplete="current-password">
+      </div>
+      <div class="login-error hidden" id="login-error">Parolă incorectă</div>
+      <button type="submit" class="btn-login">Intră în panou</button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════ ADMIN APP ═══════════════ -->
+<div id="admin-app" class="hidden">
+
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <div class="admin-logo">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5"/><path d="M20 10 C14 10, 10 14, 10 18 C10 24, 16 28, 20 32 C24 28, 30 24, 30 18 C30 14, 26 10, 20 10Z" fill="currentColor" opacity="0.15"/><circle cx="20" cy="19" r="2.5" fill="currentColor"/></svg>
+        <span>Admin Panel</span>
+      </div>
+      <div class="admin-header-actions">
+        <a href="index.html" target="_blank" class="btn-admin btn-ghost-admin">🌐 Vezi site</a>
+        <button id="manage-cats-btn" class="btn-admin btn-ghost-admin">📁 Categorii</button>
+        <button id="change-pass-btn" class="btn-admin btn-ghost-admin">🔑 Schimbă parola</button>
+        <button id="logout-btn" class="btn-admin btn-outline-admin">Deconectare</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">
+        <h2>Produse <span id="admin-products-count" class="count-badge">0</span></h2>
+        <input type="search" id="admin-search" placeholder="Caută după titlu, categorie..." class="admin-search">
+        <select id="admin-cat-filter" class="admin-select">
+          <option value="">Toate categoriile</option>
+        </select>
+      </div>
+      <div class="admin-toolbar-right">
+        <button id="import-btn" class="btn-admin btn-ghost-admin">📥 Import JSON</button>
+        <button id="export-btn" class="btn-admin btn-ghost-admin">📤 Export JSON</button>
+        <button id="reset-btn" class="btn-admin btn-ghost-admin">↺ Resetează</button>
+        <button id="add-product-btn" class="btn-admin btn-primary-admin">+ Produs nou</button>
+      </div>
+    </div>
+
+    <input type="file" id="import-file-input" accept=".json" class="hidden">
+
+    <div class="admin-table-wrap">
+      <table class="admin-table" id="admin-table">
+        <thead>
+          <tr>
+            <th style="width:70px">Imagine</th>
+            <th>Titlu</th>
+            <th>Categorie</th>
+            <th style="width:110px">Preț</th>
+            <th style="width:80px">Badge</th>
+            <th style="width:110px">Acțiuni</th>
+          </tr>
+        </thead>
+        <tbody id="admin-tbody"></tbody>
+      </table>
+      <div class="admin-pagination" id="admin-pagination"></div>
+    </div>
+  </main>
+
+</div>
+
+<!-- ═══════════════ MODAL: ADD/EDIT PRODUCT ═══════════════ -->
+<div class="modal-overlay hidden" id="product-modal-overlay">
+  <div class="modal" id="product-modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Produs nou</h3>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="product-form" novalidate>
+        <input type="hidden" id="pf-id">
+
+        <div class="form-row-2">
+          <div class="mform-group">
+            <label>Titlu <span class="req">*</span></label>
+            <input type="text" id="pf-title" placeholder="ex: Lumânări din ceară naturală" required>
+          </div>
+          <div class="mform-group">
+            <label>Preț (MDL) <span class="req">*</span></label>
+            <input type="number" id="pf-price" placeholder="ex: 350" min="0" required>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="mform-group">
+            <label>Categorie <span class="req">*</span></label>
+            <select id="pf-category" required>
+              <option value="">-- Selectează categoria --</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label>Subcategorie</label>
+            <select id="pf-subcategory">
+              <option value="">-- Fără subcategorie --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="mform-group">
+            <label>Badge</label>
+            <select id="pf-badge">
+              <option value="">Niciun badge</option>
+              <option value="NEW">NEW</option>
+              <option value="PROMO">PROMO</option>
+              <option value="SOLD OUT">SOLD OUT</option>
+            </select>
+          </div>
+          <div class="mform-group">
+            <label class="checkbox-label" style="margin-top:28px">
+              <input type="checkbox" id="pf-isnew">
+              <span>Marchează ca NOU</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mform-group">
+          <label>Detalii / Descriere</label>
+          <textarea id="pf-details" rows="2" placeholder="ex: Handmade 40 cm | preț pentru pereche"></textarea>
+        </div>
+
+        <!-- Imagine principală -->
+        <div class="mform-group">
+          <label>Imagine principală <span class="req">*</span></label>
+          <input type="hidden" id="pf-img1">
+          <div class="img-upload-row">
+            <button type="button" class="btn-admin btn-ghost-admin" id="pick-img1">
+              📷 Selectează imaginea
+            </button>
+            <input type="file" id="file-img1" accept="image/*" class="hidden">
+          </div>
+          <div class="img-preview-wrap" id="img1-wrap" style="display:none">
+            <img id="img1-preview" class="img-preview" alt="preview">
+            <button type="button" class="img-remove-btn" id="remove-img1" title="Elimină imaginea">✕</button>
+          </div>
+        </div>
+
+        <!-- Imagine secundară -->
+        <div class="mform-group">
+          <label>Imagine secundară <span class="opt">(opțional)</span></label>
+          <input type="hidden" id="pf-img2">
+          <div class="img-upload-row">
+            <button type="button" class="btn-admin btn-ghost-admin" id="pick-img2">
+              📷 Selectează imaginea
+            </button>
+            <input type="file" id="file-img2" accept="image/*" class="hidden">
+          </div>
+          <div class="img-preview-wrap" id="img2-wrap" style="display:none">
+            <img id="img2-preview" class="img-preview" alt="preview">
+            <button type="button" class="img-remove-btn" id="remove-img2" title="Elimină imaginea">✕</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-admin btn-ghost-admin" id="modal-cancel">Anulează</button>
+      <button class="btn-admin btn-primary-admin" id="modal-save">Salvează produsul</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL: CROP IMAGE ═══════════════ -->
+<div class="modal-overlay hidden" id="crop-modal-overlay">
+  <div class="modal crop-modal">
+    <div class="modal-header">
+      <h3>Decupează imaginea</h3>
+      <button class="modal-close" id="crop-modal-close">✕</button>
+    </div>
+    <div class="modal-body crop-modal-body">
+      <div class="crop-container">
+        <img id="crop-image" alt="crop">
+      </div>
+      <p class="crop-hint">Mută și redimensionează zona albastră pentru a selecta ce doriți. Imaginea va fi salvată cu proporție 8:9 (portret).</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-admin btn-ghost-admin" id="crop-cancel">Anulează</button>
+      <button class="btn-admin btn-primary-admin" id="crop-confirm">✔ Aplică &amp; Încarcă</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL: CATEGORIES MANAGEMENT ═══════════════ -->
+<div class="modal-overlay hidden" id="cats-modal-overlay">
+  <div class="modal cats-modal">
+    <div class="modal-header">
+      <h3>Gestionare Categorii</h3>
+      <button class="modal-close" id="cats-modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="cats-modal-body">
+      <!-- rendered dynamically -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn-admin btn-ghost-admin" id="cats-modal-done">Închide</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL: CHANGE PASSWORD ═══════════════ -->
+<div class="modal-overlay hidden" id="pass-modal-overlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h3>Schimbă parola</h3>
+      <button class="modal-close" id="pass-modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="mform-group">
+        <label>Parola curentă</label>
+        <input type="password" id="old-pass" placeholder="Parola curentă">
+      </div>
+      <div class="mform-group">
+        <label>Parola nouă</label>
+        <input type="password" id="new-pass" placeholder="Minim 6 caractere">
+      </div>
+      <div class="mform-group">
+        <label>Confirmă parola nouă</label>
+        <input type="password" id="confirm-pass" placeholder="Repetă parola nouă">
+      </div>
+      <div class="login-error hidden" id="pass-error"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-admin btn-ghost-admin" id="pass-modal-cancel">Anulează</button>
+      <button class="btn-admin btn-primary-admin" id="pass-modal-save">Salvează parola</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CONFIRM DIALOG ═══════════════ -->
+<div class="modal-overlay hidden" id="confirm-overlay">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header"><h3>Confirmare</h3></div>
+    <div class="modal-body">
+      <p id="confirm-message">Ești sigur?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-admin btn-ghost-admin" id="confirm-cancel">Anulează</button>
+      <button class="btn-admin btn-danger-admin" id="confirm-ok">Confirmă</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="admin-toast hidden" id="admin-toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
