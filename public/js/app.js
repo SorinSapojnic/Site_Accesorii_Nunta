@@ -47,7 +47,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateCartCount();
   renderHomePage();
   bindEvents();
+  bindPopState();
   document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  // Înregistrează starea inițială (Home) în istoricul browserului
+  history.replaceState(buildHistoryState('home', {}), '', '/');
 });
 
 function showLoadingOverlay(show) {
@@ -76,9 +80,66 @@ async function loadProducts() {
 }
 
 // ══════════════════════════════════════════════
-// NAVIGATION
+// NAVIGATION + HISTORY API
 // ══════════════════════════════════════════════
-function showView(name, data = {}) {
+
+// Construiește obiectul de stare salvat în history
+function buildHistoryState(view, data = {}) {
+  return {
+    view,
+    data,
+    activeCategory,
+    activeSubcategory,
+    searchQuery,
+    sortOrder,
+    currentPage,
+  };
+}
+
+// Construiește URL-ul reflectat în bara de adrese
+function buildHistoryUrl(view, data = {}) {
+  if (view === 'home') return '/';
+  const p = new URLSearchParams();
+  if (view !== 'catalog') p.set('v', view);
+  if (data.id)            p.set('id', data.id);
+  if (activeCategory)     p.set('cat', activeCategory);
+  if (activeSubcategory)  p.set('sub', activeSubcategory);
+  if (searchQuery)        p.set('q', searchQuery);
+  const qs = p.toString();
+  return qs ? '/?' + qs : '/?v=catalog';
+}
+
+// Apelat din sidebar/filtre când view-ul rămâne catalog dar starea se schimbă
+function pushCatalogState() {
+  history.pushState(
+    buildHistoryState('catalog', {}),
+    '',
+    buildHistoryUrl('catalog', {})
+  );
+}
+
+// Ascultă butonul Back/Forward al browserului
+function bindPopState() {
+  window.addEventListener('popstate', e => {
+    const s = e.state;
+    if (!s || s.view === 'home') {
+      // Resetează totul și afișează Home
+      activeCategory = null; activeSubcategory = null;
+      searchQuery = ''; sortOrder = 'default'; currentPage = 1;
+      showView('home', {}, true);
+      return;
+    }
+    // Restaurează starea salvată
+    activeCategory    = s.activeCategory    ?? null;
+    activeSubcategory = s.activeSubcategory ?? null;
+    searchQuery       = s.searchQuery       ?? '';
+    sortOrder         = s.sortOrder         ?? 'default';
+    currentPage       = s.currentPage       ?? 1;
+    showView(s.view, s.data || {}, true);
+  });
+}
+
+function showView(name, data = {}, skipHistory = false) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const el = document.getElementById('view-' + name);
   if (!el) return;
@@ -94,6 +155,15 @@ function showView(name, data = {}) {
   if (name === 'checkout') renderCheckoutSummary();
   closeMobileNav();
   closeCart();
+
+  // Înregistrează în istoricul browserului (back/forward pe telefon)
+  if (!skipHistory) {
+    history.pushState(
+      buildHistoryState(name, data),
+      '',
+      buildHistoryUrl(name, data)
+    );
+  }
 }
 
 function bindEvents() {
@@ -106,7 +176,7 @@ function bindEvents() {
       const cat    = viewEl.dataset.cat;
       if (cat) {
         activeCategory = cat; activeSubcategory = null; searchQuery = '';
-        applyFilters(); showView('catalog'); return;
+        applyFilters(); showView('catalog'); return; // showView face pushState
       }
       if (view === 'catalog' && filter === 'new') {
         activeCategory = null; activeSubcategory = null; searchQuery = '';
@@ -182,12 +252,14 @@ function bindEvents() {
     const ss = document.getElementById('sort-select');
     if (cs) cs.value = ''; if (ss) ss.value = 'default';
     sortOrder = 'default'; applyFilters(); renderSidebarCats(); renderCatalogBreadcrumb();
+    pushCatalogState();
   });
   document.getElementById('catalog-search')?.addEventListener('input', e => {
     searchQuery = e.target.value.trim(); currentPage = 1; applyFilters();
   });
   document.getElementById('sort-select')?.addEventListener('change', e => {
     sortOrder = e.target.value; currentPage = 1; applyFilters();
+    pushCatalogState();
   });
   document.getElementById('mobile-filter-btn')?.addEventListener('click', () => {
     document.getElementById('catalog-sidebar').classList.toggle('open');
@@ -387,6 +459,7 @@ function renderSidebarCats() {
         activeCategory = null;
       }
       activeSubcategory = null; currentPage = 1; applyFilters(); renderCatalogBreadcrumb();
+      pushCatalogState(); // înregistrează filtrul în history
     }
     const sub = e.target.closest('.sidebar-subcat-item');
     if (sub) {
@@ -394,6 +467,7 @@ function renderSidebarCats() {
       document.querySelectorAll('.sidebar-subcat-item').forEach(s => s.classList.remove('active'));
       sub.classList.add('active');
       currentPage = 1; applyFilters(); renderCatalogBreadcrumb();
+      pushCatalogState(); // înregistrează filtrul în history
       document.getElementById('catalog-sidebar').classList.remove('open');
       document.getElementById('mobile-overlay').classList.remove('open');
     }
@@ -442,7 +516,7 @@ function renderProductPage(id) {
   const el = document.getElementById('product-page');
   const related = allProducts.filter(x => x.category === p.category && x.id !== id).slice(0, 4);
   el.innerHTML = `
-    <button class="product-back" onclick="showView('catalog')">← Înapoi la catalog</button>
+    <button class="product-back" onclick="history.back()">← Înapoi la catalog</button>
     <div class="product-detail-grid">
       <div class="product-gallery">
         <div class="product-gallery-main">
