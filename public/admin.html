@@ -56,6 +56,13 @@
         <select id="admin-cat-filter" class="admin-select">
           <option value="">Toate categoriile</option>
         </select>
+        <div class="price-filter-wrap">
+          <input type="number" id="admin-price-min" class="admin-price-input" placeholder="Preț min" min="0">
+          <span class="price-filter-sep">–</span>
+          <input type="number" id="admin-price-max" class="admin-price-input" placeholder="Preț max" min="0">
+          <span class="price-filter-unit">MDL</span>
+          <button id="admin-price-clear" class="price-clear-btn hidden" title="Șterge filtrul de preț">✕</button>
+        </div>
       </div>
       <div class="admin-toolbar-right">
         <button id="import-btn" class="btn-admin btn-ghost-admin">📥 Import JSON</button>

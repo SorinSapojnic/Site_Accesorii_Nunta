@@ -74,6 +74,34 @@ input, select, textarea { font-family: inherit; font-size: 14px; }
 .btn-danger-admin:hover { background: #a93226; }
 .btn-icon-admin { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); font-size: 15px; transition: .2s; }
 
+/* ── Price Filter ── */
+.price-filter-wrap {
+  display: flex; align-items: center; gap: 5px;
+}
+.admin-price-input {
+  width: 90px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 10px;
+  background: var(--white);
+  outline: none;
+  transition: .2s;
+  -moz-appearance: textfield;
+}
+.admin-price-input::-webkit-outer-spin-button,
+.admin-price-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.admin-price-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,122,.12); }
+.price-filter-sep { color: var(--text-muted); font-size: 14px; flex-shrink: 0; }
+.price-filter-unit { font-size: 12px; font-weight: 700; color: var(--text-muted); letter-spacing: .04em; flex-shrink: 0; }
+.price-clear-btn {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted);
+  background: var(--white); cursor: pointer; transition: .2s; flex-shrink: 0;
+}
+.price-clear-btn:hover { background: #fde8e8; color: var(--error); border-color: #f5c6c6; }
+
 /* ── Admin Main ── */
 .admin-main { max-width: 1400px; margin: 0 auto; padding: 24px; }
 

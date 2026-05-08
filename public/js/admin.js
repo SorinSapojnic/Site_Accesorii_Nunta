@@ -153,6 +153,15 @@ function bindAdminEvents() {
 
   document.getElementById('admin-search')?.addEventListener('input',  () => { adminPage = 1; applyAdminFilters(); });
   document.getElementById('admin-cat-filter')?.addEventListener('change', () => { adminPage = 1; applyAdminFilters(); });
+  document.getElementById('admin-price-min')?.addEventListener('input', () => { adminPage = 1; updatePriceClearBtn(); applyAdminFilters(); });
+  document.getElementById('admin-price-max')?.addEventListener('input', () => { adminPage = 1; updatePriceClearBtn(); applyAdminFilters(); });
+  document.getElementById('admin-price-clear')?.addEventListener('click', () => {
+    document.getElementById('admin-price-min').value = '';
+    document.getElementById('admin-price-max').value = '';
+    updatePriceClearBtn();
+    adminPage = 1;
+    applyAdminFilters();
+  });
 
   // Product modal
   document.getElementById('modal-close')?.addEventListener('click', closeModal);
@@ -501,16 +510,30 @@ function populateCatFilter() {
     cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
 }
 
+function updatePriceClearBtn() {
+  const minVal = document.getElementById('admin-price-min')?.value;
+  const maxVal = document.getElementById('admin-price-max')?.value;
+  const btn    = document.getElementById('admin-price-clear');
+  if (btn) btn.classList.toggle('hidden', !minVal && !maxVal);
+}
+
 function applyAdminFilters() {
-  const q   = (document.getElementById('admin-search')?.value || '').toLowerCase().trim();
-  const cat = document.getElementById('admin-cat-filter')?.value || '';
+  const q      = (document.getElementById('admin-search')?.value || '').toLowerCase().trim();
+  const cat    = document.getElementById('admin-cat-filter')?.value || '';
+  const minRaw = document.getElementById('admin-price-min')?.value;
+  const maxRaw = document.getElementById('admin-price-max')?.value;
+  const minP   = minRaw !== '' && minRaw != null ? parseFloat(minRaw) : null;
+  const maxP   = maxRaw !== '' && maxRaw != null ? parseFloat(maxRaw) : null;
+
   filtered = allProducts.filter(p => {
-    const matchCat = !cat || p.category === cat;
-    const matchQ   = !q ||
+    const matchCat   = !cat || p.category === cat;
+    const matchQ     = !q ||
       (p.title||'').toLowerCase().includes(q) ||
       (p.category||'').toLowerCase().includes(q) ||
       (p.details||'').toLowerCase().includes(q);
-    return matchCat && matchQ;
+    const price      = p.priceNumeric || 0;
+    const matchPrice = (minP === null || price >= minP) && (maxP === null || price <= maxP);
+    return matchCat && matchQ && matchPrice;
   });
   document.getElementById('admin-products-count').textContent = filtered.length;
   renderTable();
