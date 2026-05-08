@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: site-accesorii-nunta
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_PASSWORD
+        generateValue: false
+      - key: JWT_SECRET
+        generateValue: true
